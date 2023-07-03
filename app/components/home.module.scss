@@ -137,6 +137,9 @@
   font-size: 20px;
   font-weight: bold;
   animation: slide-in ease 0.3s;
+  background: -webkit-linear-gradient(45deg, #0000ff, #dd00ff, #ff0d4d, #008000, #ff8c00, #aeff00, #00ff1a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .sidebar-sub-title {

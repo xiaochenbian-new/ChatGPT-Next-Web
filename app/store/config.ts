@@ -18,9 +18,9 @@ export enum Theme {
 }
 
 export const DEFAULT_CONFIG = {
-  submitKey: SubmitKey.CtrlEnter as SubmitKey,
-  avatar: "1f603",
-  fontSize: 14,
+  submitKey: SubmitKey.Enter as SubmitKey,
+  avatar: "26f7-fe0f",
+  fontSize: 15,
   theme: Theme.Auto as Theme,
   tightBorder: !!getClientConfig()?.isApp,
   sendPreviewBubble: true,
@@ -31,8 +31,8 @@ export const DEFAULT_CONFIG = {
   dontShowMaskSplashScreen: false, // dont show splash screen when create chat
 
   modelConfig: {
-    model: "gpt-3.5-turbo" as ModelType,
-    temperature: 0.5,
+    model: "gpt-3.5-turbo-0613" as ModelType,
+    temperature: 0.8,
     max_tokens: 2000,
     presence_penalty: 0,
     frequency_penalty: 0,
