@@ -5,6 +5,7 @@ import styles from "./home.module.scss";
 import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
 import GithubIcon from "../icons/github.svg";
+import meNav from "../icons/me-nav.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
@@ -109,6 +110,7 @@ export function SideBar(props: { className?: string }) {
 
   useHotKey();
 
+  // @ts-ignore
   return (
     <div
       className={`${styles.sidebar} ${props.className} ${
@@ -173,6 +175,12 @@ export function SideBar(props: { className?: string }) {
           <div className={styles["sidebar-action"]}>
             <a href={REPO_URL} target="_blank">
               <IconButton icon={<GithubIcon />} shadow />
+            </a>
+          </div>
+
+          <div className={styles["sidebar-action"]}>
+            <a href='https://xiaochenbian.gitee.io/nav/' target="_blank">
+              <IconButton icon={<meNav />} shadow />
             </a>
           </div>
         </div>
