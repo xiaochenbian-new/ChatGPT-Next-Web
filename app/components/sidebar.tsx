@@ -5,7 +5,7 @@ import styles from "./home.module.scss";
 import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
 import GithubIcon from "../icons/github.svg";
-import meNav from "../icons/me-nav.svg";
+import MeNav from "../icons/menav.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
@@ -181,7 +181,7 @@ export function SideBar(props: { className?: string }) {
 
           <div className={styles["sidebar-action"]}>
             <a href={NAV_URL} target="_blank">
-              <IconButton icon={<meNav />} shadow />
+              <IconButton icon={<MeNav />} shadow />
             </a>
           </div>
         </div>
