@@ -22,6 +22,7 @@ import {
   NARROW_SIDEBAR_WIDTH,
   Path,
   REPO_URL,
+  NAV_URL,
 } from "../constant";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -179,7 +180,7 @@ export function SideBar(props: { className?: string }) {
           </div>
 
           <div className={styles["sidebar-action"]}>
-            <a href='https://xiaochenbian.gitee.io/nav/' target="_blank">
+            <a href={NAV_URL} target="_blank">
               <IconButton icon={<meNav />} shadow />
             </a>
           </div>
