@@ -207,7 +207,7 @@ const cn = {
     },
     Endpoint: {
       Title: "接口地址",
-      SubTitle: "除默认地址外，必须包含 http(s)://     （ 中转代理地址：https://chatgpt1.nextweb.fun/api/proxy ）",
+      SubTitle: "除默认( /api/openai/ )地址外，必须包含 http(s)://, 中转代理地址：https://chatgpt1.nextweb.fun/api/proxy",
     },
     Model: "模型 (model)",
     Temperature: {
