@@ -36,10 +36,10 @@ export const getServerSideConfig = () => {
       "[Server Config] you are importing a nodejs-only module outside of nodejs",
     );
   }
-  
+
   // 从这里开始
-  const apiKeys = (process.env.OPENAI_API_KEY ?? '').split(',')
-  const apiKey = apiKeys.at(Math.floor(Math.random() * apiKeys.length)) ?? ''
+  const apiKeys = (process.env.OPENAI_API_KEY ?? "").split(",");
+  const apiKey = apiKeys.at(Math.floor(Math.random() * apiKeys.length)) ?? "";
 
   return {
     apiKey,
@@ -50,7 +50,7 @@ export const getServerSideConfig = () => {
     proxyUrl: process.env.PROXY_URL,
     isVercel: !!process.env.VERCEL,
     hideUserApiKey: !!process.env.HIDE_USER_API_KEY,
-    enableGPT4: !process.env.DISABLE_GPT4,
+    disableGPT4: !!process.env.DISABLE_GPT4,
     hideBalanceQuery: !!process.env.HIDE_BALANCE_QUERY,
   };
 };
