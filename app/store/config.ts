@@ -2,13 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { LLMModel } from "../client/api";
 import { getClientConfig } from "../config/client";
-import {
-  DEFAULT_CL_API,
-  DEFAULT_CL_API_KEY,
-  DEFAULT_INPUT_TEMPLATE,
-  DEFAULT_MODELS,
-  StoreKey,
-} from "../constant";
+import { DEFAULT_INPUT_TEMPLATE, DEFAULT_MODELS, StoreKey } from "../constant";
 
 export type ModelType = (typeof DEFAULT_MODELS)[number]["name"];
 
@@ -54,8 +48,6 @@ export const DEFAULT_CONFIG = {
     historyMessageCount: 4,
     compressMessageLengthThreshold: 1000,
     template: DEFAULT_INPUT_TEMPLATE,
-    cl_api: DEFAULT_CL_API,
-    api_key: DEFAULT_CL_API_KEY,
   },
 };
 
