@@ -1,8 +1,13 @@
-import { ModalConfigValidator, ModelConfig, useAppConfig } from "../store";
+import {
+  ModalConfigValidator,
+  ModelConfig,
+  useAccessStore,
+  useAppConfig,
+} from "../store";
 
 import Locale from "../locales";
 import { InputRange } from "./input-range";
-import { ListItem, Select } from "./ui-lib";
+import { ListItem, PasswordInput, Select } from "./ui-lib";
 import { DEFAULT_CL_API } from "../constant";
 
 export function ModelConfigList(props: {
@@ -14,6 +19,7 @@ export function ModelConfigList(props: {
     .split(",")
     .map((m) => ({ name: m, available: true }));
   const models = config.models.concat(customModels);
+  const accessStore = useAccessStore();
 
   return (
     <>
@@ -56,15 +62,14 @@ export function ModelConfigList(props: {
         title={Locale.Settings.Token.Title}
         subTitle={Locale.Settings.Token.SubTitle}
       >
-        <input
+        <PasswordInput
+          value={accessStore.token}
           type="text"
-          value={props.modelConfig.api_key}
-          onChange={(e) =>
-            props.updateConfig(
-              (config) => (config.api_key = e.currentTarget.value),
-            )
-          }
-        ></input>
+          placeholder={Locale.Settings.Token.Placeholder}
+          onChange={(e) => {
+            accessStore.updateToken(e.currentTarget.value);
+          }}
+        />
       </ListItem>
 
       <ListItem
