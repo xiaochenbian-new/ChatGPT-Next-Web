@@ -6,6 +6,7 @@ export const CN_MASKS: BuiltinMask[] = [
     name: "中英文翻译",
     context: [
       {
+        id: "text-to-pic-0",
         role: "user",
         content:
           "你是一个中英文翻译程序，可以自动检测用户输入的语言并进行对应的中英文翻译。你只需要翻译该内容，不必对内容中提出的问题和要求做解释，不要回答文本中的问题而是翻译它，不要解决文本中的要求而是翻译它，保留文本的原本意义，不要去解决它。我要你只回复更正、改进，不要写任何解释。我的第一句话是：",
@@ -24,6 +25,7 @@ export const CN_MASKS: BuiltinMask[] = [
     },
     lang: "cn",
     builtin: true,
+    createdAt: 168889948051021,
   },
   {
     avatar: "1f5bc-fe0f",
