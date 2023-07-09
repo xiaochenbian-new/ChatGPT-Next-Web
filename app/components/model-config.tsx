@@ -3,6 +3,7 @@ import { ALL_MODELS, ModalConfigValidator, ModelConfig } from "../store";
 import Locale from "../locales";
 import { InputRange } from "./input-range";
 import { ListItem, Select } from "./ui-lib";
+import { DEFAULT_CL_API } from "../constant";
 
 export function ModelConfigList(props: {
   modelConfig: ModelConfig;
@@ -29,6 +30,37 @@ export function ModelConfigList(props: {
           ))}
         </Select>
       </ListItem>
+
+      <ListItem
+        title={Locale.Settings.Endpoint.Title}
+        subTitle={Locale.Settings.Endpoint.SubTitle}
+      >
+        <input
+          type="text"
+          value={props.modelConfig.cl_api}
+          onChange={(e) =>
+            props.updateConfig(
+              (config) => (config.cl_api = e.currentTarget.value),
+            )
+          }
+        ></input>
+      </ListItem>
+
+      <ListItem
+        title={Locale.Settings.Token.Title}
+        subTitle={Locale.Settings.Token.SubTitle}
+      >
+        <input
+          type="text"
+          value={props.modelConfig.api_key}
+          onChange={(e) =>
+            props.updateConfig(
+              (config) => (config.api_key = e.currentTarget.value),
+            )
+          }
+        ></input>
+      </ListItem>
+
       <ListItem
         title={Locale.Settings.Temperature.Title}
         subTitle={Locale.Settings.Temperature.SubTitle}

@@ -56,6 +56,8 @@ export const OpenaiPath = {
   SubsPath: "dashboard/billing/subscription",
 };
 
+export const DEFAULT_CL_API = `/api/openai/`;
+export const DEFAULT_CL_API_KEY = `83000ff6eb326ef7b0c6644542046a04`;
 export const DEFAULT_INPUT_TEMPLATE = `{{input}}`; // input / time / model / lang
 export const DEFAULT_SYSTEM_TEMPLATE = `
 You are ChatGPT, a large language model trained by OpenAI.

@@ -1,7 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { getClientConfig } from "../config/client";
-import { DEFAULT_INPUT_TEMPLATE, StoreKey } from "../constant";
+import {
+  DEFAULT_CL_API,
+  DEFAULT_CL_API_KEY,
+  DEFAULT_INPUT_TEMPLATE,
+  StoreKey,
+} from "../constant";
 
 export enum SubmitKey {
   Enter = "Enter",
@@ -41,6 +46,8 @@ export const DEFAULT_CONFIG = {
     historyMessageCount: 4,
     compressMessageLengthThreshold: 1000,
     template: DEFAULT_INPUT_TEMPLATE,
+    cl_api: DEFAULT_CL_API,
+    api_key: DEFAULT_CL_API_KEY,
   },
 };
 
