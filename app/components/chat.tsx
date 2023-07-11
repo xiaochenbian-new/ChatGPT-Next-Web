@@ -994,45 +994,45 @@ export function Chat() {
                       parentRef={scrollRef}
                       defaultShow={i >= messages.length - 10}
                     />
-                  </div>
-                  {showActions && (
-                    <div className={styles["chat-message-actions"]}>
-                      <div className={styles["chat-input-actions"]}>
-                        {message.streaming ? (
-                          <ChatAction
-                            text={Locale.Chat.Actions.Stop}
-                            icon={<StopIcon />}
-                            onClick={() => onUserStop(message.id ?? i)}
-                          />
-                        ) : (
-                          <>
+                    {showActions && (
+                      <div className={styles["chat-message-actions"]}>
+                        <div className={styles["chat-input-actions"]}>
+                          {message.streaming ? (
                             <ChatAction
-                              text={Locale.Chat.Actions.Retry}
-                              icon={<ResetIcon />}
-                              onClick={() => onResend(message)}
+                              text={Locale.Chat.Actions.Stop}
+                              icon={<StopIcon />}
+                              onClick={() => onUserStop(message.id ?? i)}
                             />
+                          ) : (
+                            <>
+                              <ChatAction
+                                text={Locale.Chat.Actions.Retry}
+                                icon={<ResetIcon />}
+                                onClick={() => onResend(message)}
+                              />
 
-                            <ChatAction
-                              text={Locale.Chat.Actions.Delete}
-                              icon={<DeleteIcon />}
-                              onClick={() => onDelete(message.id ?? i)}
-                            />
+                              <ChatAction
+                                text={Locale.Chat.Actions.Delete}
+                                icon={<DeleteIcon />}
+                                onClick={() => onDelete(message.id ?? i)}
+                              />
 
-                            <ChatAction
-                              text={Locale.Chat.Actions.Pin}
-                              icon={<PinIcon />}
-                              onClick={() => onPinMessage(message)}
-                            />
-                            <ChatAction
-                              text={Locale.Chat.Actions.Copy}
-                              icon={<CopyIcon />}
-                              onClick={() => copyToClipboard(message.content)}
-                            />
-                          </>
-                        )}
+                              <ChatAction
+                                text={Locale.Chat.Actions.Pin}
+                                icon={<PinIcon />}
+                                onClick={() => onPinMessage(message)}
+                              />
+                              <ChatAction
+                                text={Locale.Chat.Actions.Copy}
+                                icon={<CopyIcon />}
+                                onClick={() => copyToClipboard(message.content)}
+                              />
+                            </>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
 
                   <div className={styles["chat-message-action-date"]}>
                     {isContext
