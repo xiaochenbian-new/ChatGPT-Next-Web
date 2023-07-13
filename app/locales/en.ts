@@ -53,6 +53,7 @@ const en: LocaleType = {
       Masks: "Masks",
       Clear: "Clear Context",
       Settings: "Settings",
+      ProxyURLME: "Proxy Url",
     },
     Rename: "Rename Chat",
     Typing: "Typing…",
