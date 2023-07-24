@@ -11,11 +11,11 @@ import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
-import DragIcon from "../icons/drag.svg";
 
 import Locale from "../locales";
 
-import { useAppConfig, useChatStore } from "../store";
+import { useAppConfig, useChatStore, useAccessStore } from "../store";
+import DragIcon from "../icons/drag.svg";
 
 import {
   MAX_SIDEBAR_WIDTH,
@@ -109,6 +109,7 @@ export function SideBar(props: { className?: string }) {
   const { onDragMouseDown, shouldNarrow } = useDragSideBar();
   const navigate = useNavigate();
   const config = useAppConfig();
+  const accessStore = useAccessStore();
 
   useHotKey();
 
@@ -151,6 +152,19 @@ export function SideBar(props: { className?: string }) {
         onClick={(e) => {
           if (e.target === e.currentTarget) {
             navigate(Path.Home);
+          }
+          const temp = chatStore.currentSession();
+          if (temp.mask.api_key !== "") {
+            console.log("点击了", temp.mask.api_url);
+            accessStore.updateOpenAiUrl(temp.mask.api_url);
+            accessStore.updateToken(temp.mask.api_key);
+          } else {
+            console.log(
+              "当前对话key为空，应该更新全局为空用默认",
+              temp.mask.api_url,
+            );
+            accessStore.updateOpenAiUrl("/api/openai/");
+            accessStore.updateToken("");
           }
         }}
       >

@@ -20,6 +20,7 @@ import {
   ModelConfig,
   useAppConfig,
   useChatStore,
+  useAccessStore,
 } from "../store";
 import { ROLES } from "../client/api";
 import {
@@ -30,6 +31,7 @@ import {
   Popover,
   Select,
   showConfirm,
+  PasswordInput,
 } from "./ui-lib";
 import { Avatar, AvatarPicker } from "./emoji";
 import Locale, { AllLangs, ALL_LANG_OPTIONS, Lang } from "../locales";
@@ -74,10 +76,10 @@ export function MaskConfig(props: {
   shouldSyncFromGlobal?: boolean;
 }) {
   const [showPicker, setShowPicker] = useState(false);
-
+  const accessStore = useAccessStore();
   const updateConfig = (updater: (config: ModelConfig) => void) => {
     if (props.readonly) return;
-
+    //test
     const config = { ...props.mask.modelConfig };
     updater(config);
     props.updateMask((mask) => {
@@ -93,7 +95,7 @@ export function MaskConfig(props: {
   };
 
   const globalConfig = useAppConfig();
-
+  const config = useAppConfig();
   return (
     <>
       <ContextPrompts
@@ -195,6 +197,72 @@ export function MaskConfig(props: {
         ) : null}
       </List>
 
+      {/* <List>
+        <ApiSettings         
+        />
+      </List> */}
+
+      <List>
+        {/* <ListItem
+          title={Locale.Mask.Config.Sync.Title}
+          subTitle={Locale.Mask.Config.Sync.SubTitle}
+        >
+          <input
+            type="checkbox"
+            checked={props.mask.syncGlobalApi} //这里就是来控制mask下的参数同步问题
+            onChange={async (e) => {
+              const checked = e.currentTarget.checked;
+              if (
+                checked &&
+                (await showConfirm(Locale.Mask.Config.Sync.Confirm))
+              ) {
+                props.updateMask((mask) => {
+                  mask.syncGlobalApi = checked;
+                  mask.api_key = globalConfig.api_key;
+                  mask.api_url = globalConfig.api_url;
+                });
+              } else if (!checked) {
+                props.updateMask((mask) => {
+                  mask.syncGlobalApi = checked;
+                });
+              }
+            }}
+          ></input>
+        </ListItem> */}
+        <ListItem
+          title={Locale.Settings.Endpoint.Title}
+          subTitle={Locale.Settings.Endpoint.SubTitle}
+        >
+          <input
+            type="text"
+            value={props.mask.api_url}
+            placeholder="https://api.openai.com/"
+            onChange={(e) => (
+              props.updateMask(
+                (mask) => (mask.api_url = e.currentTarget.value),
+              ),
+              accessStore.updateOpenAiUrl(e.currentTarget.value)
+              // console.log([test], e.currentTarget.value)
+            )}
+          ></input>
+        </ListItem>
+        <ListItem
+          title={Locale.Settings.Token.Title}
+          subTitle={Locale.Settings.Token.SubTitle}
+        >
+          <PasswordInput
+            value={props.mask.api_key}
+            type="text"
+            placeholder={Locale.Settings.Token.Placeholder}
+            onChange={(e) => (
+              props.updateMask(
+                (mask) => (mask.api_key = e.currentTarget.value),
+              ),
+              accessStore.updateToken(e.currentTarget.value)
+            )}
+          />
+        </ListItem>
+      </List>
       <List>
         <ModelConfigList
           modelConfig={{ ...props.mask.modelConfig }}

@@ -8,6 +8,8 @@ import { StoreKey } from "../constant";
 import { nanoid } from "nanoid";
 
 export type Mask = {
+  api_key: string;
+  api_url: string;
   id: string;
   createdAt: number;
   avatar: string;
@@ -15,6 +17,7 @@ export type Mask = {
   hideContext?: boolean;
   context: ChatMessage[];
   syncGlobalConfig?: boolean;
+  syncGlobalApi?: boolean;
   modelConfig: ModelConfig;
   lang: Lang;
   builtin: boolean;
@@ -37,11 +40,14 @@ type MaskStore = MaskState & {
 export const DEFAULT_MASK_AVATAR = "gpt-bot";
 export const createEmptyMask = () =>
   ({
+    api_key: "",
+    api_url: "",
     id: nanoid(),
     avatar: DEFAULT_MASK_AVATAR,
     name: DEFAULT_TOPIC,
     context: [],
     syncGlobalConfig: true, // use global config as default
+    syncGlobalApi: true, // use global api as default
     modelConfig: { ...useAppConfig.getState().modelConfig },
     lang: getLang(),
     builtin: false,
@@ -109,7 +115,7 @@ export const useMaskStore = create<MaskStore>()(
     }),
     {
       name: StoreKey.Mask,
-      version: 3.1,
+      version: 3,
 
       migrate(state, version) {
         const newState = JSON.parse(JSON.stringify(state)) as MaskState;
@@ -117,14 +123,6 @@ export const useMaskStore = create<MaskStore>()(
         // migrate mask id to nanoid
         if (version < 3) {
           Object.values(newState.masks).forEach((m) => (m.id = nanoid()));
-        }
-
-        if (version < 3.1) {
-          const updatedMasks: Record<string, Mask> = {};
-          Object.values(newState.masks).forEach((m) => {
-            updatedMasks[m.id] = m;
-          });
-          newState.masks = updatedMasks;
         }
 
         return newState as any;

@@ -1,6 +1,6 @@
 import { getClientConfig } from "../config/client";
 import { ACCESS_CODE_PREFIX } from "../constant";
-import { ChatMessage, ModelType, useAccessStore } from "../store";
+import { ChatMessage, ModelType, useAccessStore, useChatStore } from "../store";
 import { ChatGPTApi } from "./platforms/openai";
 
 export const ROLES = ["system", "user", "assistant"] as const;
@@ -8,6 +8,10 @@ export type MessageRole = (typeof ROLES)[number];
 
 export const Models = ["gpt-3.5-turbo", "gpt-4"] as const;
 export type ChatModel = ModelType;
+
+import { getServerSideConfig } from "@/app/config";
+
+const serverConfig = getServerSideConfig();
 
 export interface RequestMessage {
   role: MessageRole;
@@ -134,10 +138,14 @@ export function getHeaders() {
 
   const makeBearer = (token: string) => `Bearer ${token.trim()}`;
   const validString = (x: string) => x && x.length > 0;
-
+  const chatStore = useChatStore.getState();
+  const session = chatStore.currentSession();
+  const isDefault = session.mask.api_key;
   // use user's api key first
-  if (validString(accessStore.token)) {
+  // 增加判断条件 currentSession的key要不是默认的
+  if (validString(accessStore.token) && isDefault !== "") {
     headers.Authorization = makeBearer(accessStore.token);
+    console.log("[headers.Authorization](api.ts)", headers.Authorization);
   } else if (
     accessStore.enabledAccessControl() &&
     validString(accessStore.accessCode)

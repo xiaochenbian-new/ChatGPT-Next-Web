@@ -82,7 +82,6 @@ export class ChatGPTApi implements LLMApi {
         signal: controller.signal,
         headers: getHeaders(),
       };
-
       // make a fetch request
       const requestTimeoutId = setTimeout(
         () => controller.abort(),

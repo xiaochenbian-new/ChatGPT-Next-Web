@@ -42,7 +42,7 @@ import {
   useChatStore,
   BOT_HELLO,
   createMessage,
-  useAccessStore,
+  // useAccessStore,
   Theme,
   useAppConfig,
   DEFAULT_TOPIC,
@@ -83,14 +83,40 @@ import { ChatCommandPrefix, useChatCommand, useCommand } from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
+import { createEmptySession } from "../store/chat";
+import { useAccessStore } from "../store/access";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
 });
 
+export let session_record = createEmptySession();
+
+export function useUpdateAccessStore(api_key: string, api_url: string) {
+  const accessStore = useAccessStore();
+  useEffect(() => {
+    accessStore.updateToken(api_key);
+    accessStore.updateOpenAiUrl(api_url);
+  }, [accessStore, api_key, api_url]);
+}
+
+// function MyComponent() {
+//   useUpdateAccessStore('your_api_key', 'your_api_url');
+
+//   return (
+//     // your component JSX
+//     <div></div>
+//   );
+// }
+
 export function SessionConfigModel(props: { onClose: () => void }) {
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
+  session_record = session;
+  // const accessStore = useAccessStore();
+  // accessStore.updateToken(session.mask.api_key);
+  // accessStore.updateOpenAiUrl(session.mask.api_url);
+
   const maskStore = useMaskStore();
   const navigate = useNavigate();
 
