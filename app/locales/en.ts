@@ -60,6 +60,7 @@ const en: LocaleType = {
       Clear: "Clear Context",
       Settings: "Settings",
       ProxyURLME: "Proxy Url",
+      StoreName: "API Store",
     },
     Rename: "Rename Chat",
     Typing: "Typing…",
