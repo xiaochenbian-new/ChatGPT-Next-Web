@@ -13,7 +13,6 @@ export async function requestOpenai(req: NextRequest) {
     "/api/openai/",
     "",
   );
-
   let baseUrl = BASE_URL;
 
   if (!baseUrl.startsWith("http")) {
@@ -47,7 +46,6 @@ export async function requestOpenai(req: NextRequest) {
     duplex: "half",
     signal: controller.signal,
   };
-
   // #1815 try to refuse gpt4 request
   if (DISABLE_GPT4 && req.body) {
     try {

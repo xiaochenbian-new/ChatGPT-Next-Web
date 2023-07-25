@@ -20,6 +20,7 @@ import {
   ModelConfig,
   useAppConfig,
   useChatStore,
+  useAccessStore,
 } from "../store";
 import { ROLES } from "../client/api";
 import {
@@ -30,6 +31,7 @@ import {
   Popover,
   Select,
   showConfirm,
+  PasswordInput,
 } from "./ui-lib";
 import { Avatar, AvatarPicker } from "./emoji";
 import Locale, { AllLangs, ALL_LANG_OPTIONS, Lang } from "../locales";
@@ -74,10 +76,10 @@ export function MaskConfig(props: {
   shouldSyncFromGlobal?: boolean;
 }) {
   const [showPicker, setShowPicker] = useState(false);
-
+  const accessStore = useAccessStore();
   const updateConfig = (updater: (config: ModelConfig) => void) => {
     if (props.readonly) return;
-
+    //test
     const config = { ...props.mask.modelConfig };
     updater(config);
     props.updateMask((mask) => {
@@ -93,7 +95,7 @@ export function MaskConfig(props: {
   };
 
   const globalConfig = useAppConfig();
-
+  const config = useAppConfig();
   return (
     <>
       <ContextPrompts
@@ -195,6 +197,72 @@ export function MaskConfig(props: {
         ) : null}
       </List>
 
+      {/* <List>
+        <ApiSettings         
+        />
+      </List> */}
+
+      <List>
+        {/* <ListItem
+          title={Locale.Mask.Config.Sync.Title}
+          subTitle={Locale.Mask.Config.Sync.SubTitle}
+        >
+          <input
+            type="checkbox"
+            checked={props.mask.syncGlobalApi} //这里就是来控制mask下的参数同步问题
+            onChange={async (e) => {
+              const checked = e.currentTarget.checked;
+              if (
+                checked &&
+                (await showConfirm(Locale.Mask.Config.Sync.Confirm))
+              ) {
+                props.updateMask((mask) => {
+                  mask.syncGlobalApi = checked;
+                  mask.api_key = globalConfig.api_key;
+                  mask.api_url = globalConfig.api_url;
+                });
+              } else if (!checked) {
+                props.updateMask((mask) => {
+                  mask.syncGlobalApi = checked;
+                });
+              }
+            }}
+          ></input>
+        </ListItem> */}
+        <ListItem
+          title={Locale.Settings.Endpoint.Title}
+          subTitle={Locale.Settings.Endpoint.SubTitle}
+        >
+          <input
+            type="text"
+            value={props.mask.api_url}
+            placeholder="https://api.openai.com/"
+            onChange={(e) => (
+              props.updateMask(
+                (mask) => (mask.api_url = e.currentTarget.value),
+              ),
+              accessStore.updateOpenAiUrl(e.currentTarget.value)
+              // console.log([test], e.currentTarget.value)
+            )}
+          ></input>
+        </ListItem>
+        <ListItem
+          title={Locale.Settings.Token.Title}
+          subTitle={Locale.Settings.Token.SubTitle}
+        >
+          <PasswordInput
+            value={props.mask.api_key}
+            type="text"
+            placeholder={Locale.Settings.Token.Placeholder}
+            onChange={(e) => (
+              props.updateMask(
+                (mask) => (mask.api_key = e.currentTarget.value),
+              ),
+              accessStore.updateToken(e.currentTarget.value)
+            )}
+          />
+        </ListItem>
+      </List>
       <List>
         <ModelConfigList
           modelConfig={{ ...props.mask.modelConfig }}
@@ -215,67 +283,58 @@ function ContextPromptItem(props: {
   const [focusingInput, setFocusingInput] = useState(false);
 
   return (
-    <Draggable draggableId={props.prompt.id || props.index.toString()} index={props.index}>
-      {(provided) => (
-        <div
-          className={chatStyle["context-prompt-row"]}
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          {!focusingInput && (
-            <>
-              <div className={chatStyle["context-drag"]}>
-                <DragIcon />
-              </div>
-              <Select
-                value={props.prompt.role}
-                className={chatStyle["context-role"]}
-                onChange={(e) =>
-                  props.update({
-                    ...props.prompt,
-                    role: e.target.value as any,
-                  })
-                }
-              >
-                {ROLES.map((r) => (
-                  <option key={r} value={r}>
-                    {r}
-                  </option>
-                ))}
-              </Select>
-            </>
-          )}
-          <Input
-            value={props.prompt.content}
-            type="text"
-            className={chatStyle["context-content"]}
-            rows={focusingInput ? 5 : 1}
-            onFocus={() => setFocusingInput(true)}
-            onBlur={() => {
-              setFocusingInput(false);
-              // If the selection is not removed when the user loses focus, some
-              // extensions like "Translate" will always display a floating bar
-              window?.getSelection()?.removeAllRanges();
-            }}
-            onInput={(e) =>
+    <div className={chatStyle["context-prompt-row"]}>
+      {!focusingInput && (
+        <>
+          <div className={chatStyle["context-drag"]}>
+            <DragIcon />
+          </div>
+          <Select
+            value={props.prompt.role}
+            className={chatStyle["context-role"]}
+            onChange={(e) =>
               props.update({
                 ...props.prompt,
-                content: e.currentTarget.value as any,
+                role: e.target.value as any,
               })
             }
-          />
-          {!focusingInput && (
-            <IconButton
-              icon={<DeleteIcon />}
-              className={chatStyle["context-delete-button"]}
-              onClick={() => props.remove()}
-              bordered
-            />
-          )}
-        </div>
+          >
+            {ROLES.map((r) => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
+          </Select>
+        </>
       )}
-    </Draggable>
+      <Input
+        value={props.prompt.content}
+        type="text"
+        className={chatStyle["context-content"]}
+        rows={focusingInput ? 5 : 1}
+        onFocus={() => setFocusingInput(true)}
+        onBlur={() => {
+          setFocusingInput(false);
+          // If the selection is not removed when the user loses focus, some
+          // extensions like "Translate" will always display a floating bar
+          window?.getSelection()?.removeAllRanges();
+        }}
+        onInput={(e) =>
+          props.update({
+            ...props.prompt,
+            content: e.currentTarget.value as any,
+          })
+        }
+      />
+      {!focusingInput && (
+        <IconButton
+          icon={<DeleteIcon />}
+          className={chatStyle["context-delete-button"]}
+          onClick={() => props.remove()}
+          bordered
+        />
+      )}
+    </div>
   );
 }
 
@@ -285,8 +344,8 @@ export function ContextPrompts(props: {
 }) {
   const context = props.context;
 
-  const addContextPrompt = (prompt: ChatMessage) => {
-    props.updateContext((context) => context.push(prompt));
+  const addContextPrompt = (prompt: ChatMessage, i: number) => {
+    props.updateContext((context) => context.splice(i, 0, prompt));
   };
 
   const removeContextPrompt = (i: number) => {
@@ -319,13 +378,41 @@ export function ContextPrompts(props: {
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {context.map((c, i) => (
-                  <ContextPromptItem
+                  <Draggable
+                    draggableId={c.id || i.toString()}
                     index={i}
                     key={c.id}
-                    prompt={c}
-                    update={(prompt) => updateContextPrompt(i, prompt)}
-                    remove={() => removeContextPrompt(i)}
-                  />
+                  >
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <ContextPromptItem
+                          index={i}
+                          prompt={c}
+                          update={(prompt) => updateContextPrompt(i, prompt)}
+                          remove={() => removeContextPrompt(i)}
+                        />
+                        <div
+                          className={chatStyle["context-prompt-insert"]}
+                          onClick={() => {
+                            addContextPrompt(
+                              createMessage({
+                                role: "user",
+                                content: "",
+                                date: new Date().toLocaleString(),
+                              }),
+                              i + 1,
+                            );
+                          }}
+                        >
+                          <AddIcon />
+                        </div>
+                      </div>
+                    )}
+                  </Draggable>
                 ))}
                 {provided.placeholder}
               </div>
@@ -333,23 +420,26 @@ export function ContextPrompts(props: {
           </Droppable>
         </DragDropContext>
 
-        <div className={chatStyle["context-prompt-row"]}>
-          <IconButton
-            icon={<AddIcon />}
-            text={Locale.Context.Add}
-            bordered
-            className={chatStyle["context-prompt-button"]}
-            onClick={() =>
-              addContextPrompt(
-                createMessage({
-                  role: "user",
-                  content: "",
-                  date: "",
-                }),
-              )
-            }
-          />
-        </div>
+        {props.context.length === 0 && (
+          <div className={chatStyle["context-prompt-row"]}>
+            <IconButton
+              icon={<AddIcon />}
+              text={Locale.Context.Add}
+              bordered
+              className={chatStyle["context-prompt-button"]}
+              onClick={() =>
+                addContextPrompt(
+                  createMessage({
+                    role: "user",
+                    content: "",
+                    date: "",
+                  }),
+                  props.context.length,
+                )
+              }
+            />
+          </div>
+        )}
       </div>
     </>
   );

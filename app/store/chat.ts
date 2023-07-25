@@ -18,6 +18,8 @@ import { prettyObject } from "../utils/format";
 import { estimateTokenLength } from "../utils/token";
 import { nanoid } from "nanoid";
 
+import { useAccessStore } from "./access";
+
 export type ChatMessage = RequestMessage & {
   date: string;
   streaming?: boolean;
@@ -45,6 +47,8 @@ export interface ChatStat {
 export interface ChatSession {
   id: string;
   topic: string;
+  api_key: string;
+  api_url: string;
 
   memoryPrompt: string;
   messages: ChatMessage[];
@@ -62,8 +66,10 @@ export const BOT_HELLO: ChatMessage = createMessage({
   content: Locale.Store.BotHello,
 });
 
-function createEmptySession(): ChatSession {
+export function createEmptySession(): ChatSession {
   return {
+    api_key: "123",
+    api_url: "",
     id: nanoid(),
     topic: DEFAULT_TOPIC,
     memoryPrompt: "",
@@ -193,6 +199,7 @@ export const useChatStore = create<ChatStore>()(
             },
           };
           session.topic = mask.name;
+          session.api_key = mask.api_key;
         }
 
         set((state) => ({
@@ -261,6 +268,8 @@ export const useChatStore = create<ChatStore>()(
         }
 
         const session = sessions[index];
+        const accessStore = useAccessStore.getState();
+        console.log("useChatStore [chat.ts]", accessStore);
 
         return session;
       },

@@ -9,12 +9,13 @@ export interface AccessControlStore {
   accessCode: string;
   token: string;
 
+  global_openaiUrl: string;
+  global_apiKey: string;
+
   needCode: boolean;
   hideUserApiKey: boolean;
-  hideBalanceQuery: boolean;
-  disableGPT4: boolean;
-
   openaiUrl: string;
+  hideBalanceQuery: boolean;
 
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
@@ -22,6 +23,8 @@ export interface AccessControlStore {
   enabledAccessControl: () => boolean;
   isAuthorized: () => boolean;
   fetch: () => void;
+  updateGlobalApiKey: (_: string) => void;
+  updateGlobalOpenaiUrl: (_: string) => void;
 }
 
 let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
@@ -37,10 +40,10 @@ export const useAccessStore = create<AccessControlStore>()(
       accessCode: "",
       needCode: true,
       hideUserApiKey: false,
-      hideBalanceQuery: false,
-      disableGPT4: false,
-
       openaiUrl: DEFAULT_OPENAI_URL,
+      hideBalanceQuery: false,
+      global_openaiUrl: DEFAULT_OPENAI_URL,
+      global_apiKey: "",
 
       enabledAccessControl() {
         get().fetch();
@@ -48,14 +51,21 @@ export const useAccessStore = create<AccessControlStore>()(
         return get().needCode;
       },
       updateCode(code: string) {
-        set(() => ({ accessCode: code?.trim() }));
+        set(() => ({ accessCode: code }));
       },
       updateToken(token: string) {
-        set(() => ({ token: token?.trim() }));
+        set(() => ({ token }));
       },
       updateOpenAiUrl(url: string) {
-        set(() => ({ openaiUrl: url?.trim() }));
+        set(() => ({ openaiUrl: url }));
       },
+      updateGlobalApiKey(url: string) {
+        set(() => ({ global_apiKey: url }));
+      },
+      updateGlobalOpenaiUrl(url: string) {
+        set(() => ({ global_openaiUrl: url }));
+      },
+
       isAuthorized() {
         get().fetch();
 

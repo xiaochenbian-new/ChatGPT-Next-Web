@@ -137,6 +137,10 @@ export function ChatList(props: { narrow?: boolean }) {
                 index={i}
                 selected={i === selectedIndex}
                 onClick={() => {
+                  // const accessStore = useAccessStore();
+                  // accessStore.updateToken(session_record.mask.api_key);
+                  // accessStore.updateOpenAiUrl(session_record.mask.api_url);
+                  // <UpdateAccessStore api_key={session_record.mask.api_key} api_url={session_record.mask.api_url} />;
                   navigate(Path.Chat);
                   selectSession(i);
                 }}
