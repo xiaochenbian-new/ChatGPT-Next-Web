@@ -35,7 +35,7 @@ import BottomIcon from "../icons/bottom.svg";
 import StopIcon from "../icons/pause.svg";
 import RobotIcon from "../icons/robot.svg";
 import ProxyIcon from "../icons/proxy.svg";
-import StoreIcon from "../icons/store-me.svg";
+import StoreIcon from "../icons/store.svg";
 
 import {
   ChatMessage,
