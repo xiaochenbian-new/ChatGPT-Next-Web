@@ -43,6 +43,7 @@ export function Card(props: { children: JSX.Element[]; className?: string }) {
 
 export function ListItem(props: {
   title: string;
+  storeUrl: JSX.Element;
   subTitle?: string;
   children?: JSX.Element | JSX.Element[];
   icon?: JSX.Element;
@@ -57,7 +58,9 @@ export function ListItem(props: {
       <div className={styles["list-header"]}>
         {props.icon && <div className={styles["list-icon"]}>{props.icon}</div>}
         <div className={styles["list-item-title"]}>
-          <div>{props.title}</div>
+          <div>
+            {props.title} {props.storeUrl}
+          </div>
           {props.subTitle && (
             <div className={styles["list-item-sub-title"]}>
               {props.subTitle}

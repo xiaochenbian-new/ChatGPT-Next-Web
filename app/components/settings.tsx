@@ -636,6 +636,7 @@ export function Settings() {
             <>
               <ListItem
                 title={Locale.Settings.Endpoint.Title}
+                storeUrl={Locale.Settings.Endpoint.StoreUrl}
                 subTitle={Locale.Settings.Endpoint.SubTitle}
               >
                 <input

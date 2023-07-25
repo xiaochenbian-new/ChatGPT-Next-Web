@@ -222,6 +222,8 @@ const cn = {
     },
     Endpoint: {
       Title: "接口地址",
+      StoreUrl:
+        ': <a href="https://api.nextweb.fun/" target="_blank"> api商店 </a>',
       SubTitle:
         "除默认( /api/openai/ )地址外，必须包含 http(s)://, 中转代理地址：https://gptapi.nextweb.fun/api/openai",
     },
