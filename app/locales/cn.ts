@@ -227,9 +227,9 @@ const cn = {
       Placeholder: "请输入访问密码",
     },
     Endpoint: {
-      Title: "接口地址",
+      Title: "接口地址（默认：/api/openai/）",
       SubTitle:
-        "除默认( /api/openai/ )地址外，必须包含 http(s)://, 中转代理地址：https://gptapi.nextweb.fun/api/openai",
+        "代理地址v1：https://gptapi.nextweb.fun/api/openai   v2：https://api.nextweb.fun/openai",
     },
     CustomModel: {
       Title: "自定义模型名",
