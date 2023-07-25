@@ -35,6 +35,7 @@ import BottomIcon from "../icons/bottom.svg";
 import StopIcon from "../icons/pause.svg";
 import RobotIcon from "../icons/robot.svg";
 import ProxyIcon from "../icons/proxy.svg";
+import StoreIcon from "../icons/store-me.svg";
 
 import {
   ChatMessage,
@@ -535,6 +536,14 @@ export function ChatActions(props: {
         }}
         text={Locale.Chat.InputActions.ProxyURLME}
         icon={<ProxyIcon />}
+      />
+
+      <ChatAction
+        onClick={() => {
+          window.open("https://api.nextweb.fun/", "_blank");
+        }}
+        text={Locale.Chat.InputActions.StoreName}
+        icon={<StoreIcon />}
       />
 
       {showModelSelector && (

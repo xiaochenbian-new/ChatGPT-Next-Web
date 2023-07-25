@@ -57,7 +57,7 @@ export function ListItem(props: {
       <div className={styles["list-header"]}>
         {props.icon && <div className={styles["list-icon"]}>{props.icon}</div>}
         <div className={styles["list-item-title"]}>
-          <div>{props.title} : <a href="https://api.nextweb.fun/" target="_blank"> api商店 </a> </div>
+          <div>{props.title}</div>
           {props.subTitle && (
             <div className={styles["list-item-sub-title"]}>
               {props.subTitle}

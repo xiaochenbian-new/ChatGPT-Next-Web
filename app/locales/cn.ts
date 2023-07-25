@@ -58,6 +58,7 @@ const cn = {
       Clear: "清除聊天",
       Settings: "对话设置",
       ProxyURLME: "代理地址",
+      StoreName: "API商店",
     },
     Rename: "重命名对话",
     Typing: "正在输入…",
@@ -227,9 +228,9 @@ const cn = {
       Placeholder: "请输入访问密码",
     },
     Endpoint: {
-      Title: "接口地址（默认：/api/openai/）",
+      Title: "接口地址（/api/openai/）",
       SubTitle:
-        "代理地址v1：https://gptapi.nextweb.fun/api/openai   v2：https://api.nextweb.fun/openai",
+        "中转代理v1：https://gptapi.nextweb.fun/api/openai          中转代理v2：https://api.nextweb.fun/openai",
     },
     CustomModel: {
       Title: "自定义模型名",
