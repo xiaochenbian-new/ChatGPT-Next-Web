@@ -10,11 +10,13 @@ import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
+import StoreIcon from "../icons/store.svg";
 import PluginIcon from "../icons/plugin.svg";
 
 import Locale from "../locales";
 
 import { useAppConfig, useChatStore, useAccessStore } from "../store";
+import { API_STORE_HOST } from "../constant";
 import DragIcon from "../icons/drag.svg";
 
 import {
@@ -131,6 +133,13 @@ export function SideBar(props: { className?: string }) {
       </div>
 
       <div className={styles["sidebar-header-bar"]}>
+        <IconButton
+          icon={<StoreIcon />}
+          text={shouldNarrow ? undefined : Locale.Chat.InputActions.StoreName}
+          className={styles["sidebar-bar-button"]}
+          onClick={() => window.open(API_STORE_HOST)}
+          shadow
+        />
         <IconButton
           icon={<MaskIcon />}
           text={shouldNarrow ? undefined : Locale.Mask.Name}

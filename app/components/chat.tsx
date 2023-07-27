@@ -532,18 +532,10 @@ export function ChatActions(props: {
 
       <ChatAction
         onClick={() => {
-          window.open("https://gptapi.nextweb.fun/api/openai", "_blank");
+          window.open("https://api.nextweb.fun/openai", "_blank");
         }}
         text={Locale.Chat.InputActions.ProxyURLME}
         icon={<ProxyIcon />}
-      />
-
-      <ChatAction
-        onClick={() => {
-          window.open("https://api.nextweb.fun/", "_blank");
-        }}
-        text={Locale.Chat.InputActions.StoreName}
-        icon={<StoreIcon />}
       />
 
       {showModelSelector && (
