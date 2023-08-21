@@ -530,6 +530,22 @@ export function Settings() {
           </ListItem>
 
           <ListItem
+            title={Locale.Settings.AutoGenerateTitle.Title}
+            subTitle={Locale.Settings.AutoGenerateTitle.SubTitle}
+          >
+            <input
+              type="checkbox"
+              checked={config.enableAutoGenerateTitle}
+              onChange={(e) =>
+                updateConfig(
+                  (config) =>
+                    (config.enableAutoGenerateTitle = e.currentTarget.checked),
+                )
+              }
+            ></input>
+          </ListItem>
+
+          <ListItem
             title={Locale.Settings.SendPreviewBubble.Title}
             subTitle={Locale.Settings.SendPreviewBubble.SubTitle}
           >
@@ -642,11 +658,10 @@ export function Settings() {
                   type="text"
                   value={accessStore.global_openaiUrl}
                   placeholder="https://api.openai.com/"
-                  onChange={(e) =>(
+                  onChange={(e) => (
                     accessStore.updateOpenAiUrl(e.currentTarget.value),
                     accessStore.updateGlobalOpenaiUrl(e.currentTarget.value)
-                  )
-                  }
+                  )}
                 ></input>
               </ListItem>
               <ListItem
@@ -659,7 +674,7 @@ export function Settings() {
                   placeholder={Locale.Settings.Token.Placeholder}
                   onChange={(e) => {
                     accessStore.updateToken(e.currentTarget.value),
-                    accessStore.updateGlobalApiKey(e.currentTarget.value)
+                      accessStore.updateGlobalApiKey(e.currentTarget.value);
                   }}
                 />
               </ListItem>
