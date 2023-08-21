@@ -43,7 +43,7 @@ import {
   useChatStore,
   BOT_HELLO,
   createMessage,
-  useAccessStore,
+  // useAccessStore,
   Theme,
   useAppConfig,
   DEFAULT_TOPIC,
@@ -120,9 +120,6 @@ export function SessionConfigModel(props: { onClose: () => void }) {
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
   session_record = session;
-  // const accessStore = useAccessStore();
-  // accessStore.updateToken(session.mask.api_key);
-  // accessStore.updateOpenAiUrl(session.mask.api_url);
 
   const maskStore = useMaskStore();
   const navigate = useNavigate();
