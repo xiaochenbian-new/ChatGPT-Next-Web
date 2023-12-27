@@ -239,7 +239,7 @@ const cn = {
     Endpoint: {
       Title: "接口地址（/api/openai/）",
       SubTitle:
-        "中转代理v1：https://gptapi.nextweb.fun/api/openai          中转代理v2：https://api.nextweb.fun/openai",
+        "中转代理v1：https://api.nextapi.fun/          中转代理v2：https://gptapi.xiaochenbian.cc",
     },
     CustomModel: {
       Title: "自定义模型名",
